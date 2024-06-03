@@ -34,9 +34,7 @@ const rows = [
 export default function List() {
   return (
     <div style={{ display: 'flex', height: '100vh', background: '#f5f5f5' }}>
-      <div style={{ width: '20%', background: '#f0f0f0', padding: '20px' }}>
-        {/* You can add your side sections here */}
-      </div>
+    
       <div style={{ width: '80%', padding: '20px', overflow: 'hidden' }}>
         <div style={{ height: '800px', overflowY: 'auto' }}>
           <TableContainer component={Paper}>

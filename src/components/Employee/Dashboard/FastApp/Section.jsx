@@ -9,7 +9,7 @@ const sections = [
 
 const Section = () => {
   return (
-    <div style={{ padding: '20px' }}>
+    <div style={{ padding: '20px' } } className='border-2'>
       <h2 className='text-2xl font-semibold'>Sections</h2>
       <ul style={{ listStyleType: 'disc', paddingLeft: '20px' }}>
         {sections.map((section, index) => (
