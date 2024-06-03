@@ -1,9 +1,12 @@
 import React from 'react'
+import List from './List';
 
 const Dashboard = () => {
   return (
-    <div>Dashboard</div>
+    <div>
+      <List/>
+    </div>
   )
 }
 
-export default Dashboard
+export default Dashboard;

@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import logo from '../../../assets/images/logo.png';
 import Login from '../Auth/Login';
 
@@ -7,6 +8,17 @@ function NavigationBar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [username, setUsername] = useState('');
+  const [showAvatarMenu, setShowAvatarMenu] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const storedUsername = localStorage.getItem('username');
+    if (storedUsername) {
+      setUsername(storedUsername);
+      setIsLoggedIn(true);
+    }
+  }, []);
 
   const handleOpenModal = () => {
     setShowModal(true);
@@ -23,7 +35,39 @@ function NavigationBar() {
   const handleLoginSuccess = (username) => {
     setIsLoggedIn(true);
     setUsername(username);
+    localStorage.setItem('username', username);
+    setShowModal(false);
   };
+
+  const handleLogout = () => {
+    setIsLoggedIn(false);
+    setUsername('');
+    localStorage.removeItem('username');
+    setShowAvatarMenu(false);
+  };
+
+  const toggleAvatarMenu = () => {
+    setShowAvatarMenu(!showAvatarMenu);
+  };
+
+  const handleFastAppClick = () => {
+    if (isLoggedIn) {
+      navigate('/dashboard');
+    } else {
+      handleOpenModal();
+    }
+  };
+
+  const handleHomeClick = () => {
+    navigate('/');
+  };
+
+  const handleSupportClick = () => {
+    // Handle support click here
+  };
+
+  const isFastAppPage = location.pathname === '/dashboard';
+  const isAppraisalPage = location.pathname === '/appraisal'; // Adjust this path based on your route setup
 
   return (
     <div className="relative z-50">
@@ -33,11 +77,42 @@ function NavigationBar() {
         </div>
 
         <div className='hidden md:flex items-center space-x-4 font-semibold'>
-          <a href="#" className='text-white hover:text-slate-300' onClick={handleOpenModal}>FastApp</a>
-          <a href="#" className='text-white hover:text-slate-300' onClick={handleOpenModal}>Appraisal</a>
+          <a href="#" className={`text-white ${isFastAppPage || isAppraisalPage ? 'opacity-50 cursor-not-allowed' : 'hover:text-slate-300'}`} onClick={handleFastAppClick} disabled={isFastAppPage || isAppraisalPage}>FastApp</a>
+          <a href="#" className={`text-white ${isFastAppPage || isAppraisalPage ? 'opacity-50 cursor-not-allowed' : 'hover:text-slate-300'}`} onClick={handleOpenModal} disabled={isFastAppPage || isAppraisalPage}>Appraisal</a>
           {isLoggedIn ? (
-            <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">
-              {username.charAt(0)}
+            <div className="relative">
+              <div 
+                className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold cursor-pointer"
+                onClick={toggleAvatarMenu}
+              >
+                {username.charAt(0)}
+              </div>
+              {showAvatarMenu && (
+                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2">
+                  <div className="px-4 font-light py-2 text-gray-800">
+                    {username}
+                  </div>
+                  <button 
+                    className="w-full text-left px-4 py-2 text-center font-semibold text-gray-800 hover:bg-gray-200"
+                    onClick={handleHomeClick}
+                  >
+                    Home
+                  </button>
+                  <button 
+                    className="w-full text-left px-4 py-2 text-center font-semibold text-gray-800 hover:bg-gray-200"
+                    onClick={handleSupportClick}
+                  >
+                    Support
+                  </button>
+                  <button 
+                    className={`w-full text-left px-4 py-2 text-center font-semibold text-gray-800 ${isFastAppPage || isAppraisalPage ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-200'}`}
+                    onClick={handleLogout}
+                    disabled={isFastAppPage || isAppraisalPage}
+                  >
+                    Logout
+                  </button>
+                </div>
+              )}
             </div>
           ) : (
             <button 
@@ -68,11 +143,42 @@ function NavigationBar() {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
           </svg>
         </button>
-        <a href="#" className='block text-white hover:text-slate-300 mb-2' onClick={handleOpenModal}>FastApp</a>
-        <a href="#" className='block text-white hover:text-slate-300 mb-2' onClick={handleOpenModal}>Appraisal</a>
+        <a href="#" className={`block text-white ${isFastAppPage || isAppraisalPage ? 'opacity-50 cursor-not-allowed' : 'hover:text-slate-300 mb-2'}`} onClick={handleFastAppClick} disabled={isFastAppPage || isAppraisalPage}>FastApp</a>
+        <a href="#" className={`block text-white ${isFastAppPage || isAppraisalPage ? 'opacity-50 cursor-not-allowed' : 'hover:text-slate-300 mb-2'}`} onClick={handleOpenModal} disabled={isFastAppPage || isAppraisalPage}>Appraisal</a>
         {isLoggedIn ? (
-          <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold">
-            {username.charAt(0)}
+          <div className="relative">
+            <div 
+              className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold cursor-pointer"
+              onClick={toggleAvatarMenu}
+            >
+              {username.charAt(0)}
+            </div>
+            {showAvatarMenu && (
+              <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg py-2">
+                <div className="px-4 py-2 text-gray-800">
+                  {username}
+                </div>
+                <button 
+                  className="w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200"
+                  onClick={handleHomeClick}
+                >
+                  Home
+                </button>
+                <button 
+                  className="w-full text-left px-4 py-2 text-gray-800 hover:bg-gray-200"
+                  onClick={handleSupportClick}
+                >
+                  Support
+                </button>
+                <button 
+                  className={`w-full text-left px-4 py-2 text-gray-800 ${isFastAppPage || isAppraisalPage ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gray-200'}`}
+                  onClick={handleLogout}
+                  disabled={isFastAppPage || isAppraisalPage}
+                >
+                  Logout
+                </button>
+              </div>
+            )}
           </div>
         ) : (
           <button 
