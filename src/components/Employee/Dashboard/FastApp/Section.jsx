@@ -7,9 +7,9 @@ const sections = [
   'Ramp ID'
 ];
 
-const Section = () => {
+const Section = ({ disabled }) => {
   return (
-    <div style={{ padding: '20px' } } className='border-2'>
+    <div style={{ padding: '20px', opacity: disabled ? 0.5 : 1 }} className='border-2'>
       <h2 className='text-2xl font-semibold'>Sections</h2>
       <ul style={{ listStyleType: 'disc', paddingLeft: '20px' }}>
         {sections.map((section, index) => (

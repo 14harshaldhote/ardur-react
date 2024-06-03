@@ -5,27 +5,47 @@ import Comments from './Comments';
 import Checks from './Checks';
 import CompareSection from './CompareSection';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import ProgressBar from './ProgressBar';
 
 const Dashboard = () => {
-  const [isListVisible, setIsListVisible] = useState(false);
+  const [isListVisible, setIsListVisible] = useState(true);
 
   const toggleListVisibility = () => {
     setIsListVisible(!isListVisible);
   };
 
+  const handleRowClick = () => {
+    setIsListVisible(false);
+    // Handle the data opening in CompareSection here
+  };
+
   return (
     <div style={{ display: 'flex', height: '100vh', background: '#f5f5f5', position: 'relative' }}>
       <div style={{ width: '20%', padding: '20px', background: '#f0f0f0', display: 'flex', flexDirection: 'column', gap: '20px' }}>
-        <Section />
-        <Checks />
-        <Comments />
+        <Section disabled={isListVisible} />
+        <Checks disabled={isListVisible} />
+        <Comments disabled={isListVisible} />
+      </div>
+      <div style={{ width: '80%', padding: '20px' }}>
+        <div>
+          <ProgressBar/>
+        </div>
+        <CompareSection />
       </div>
       <div 
-        className={`content-container ${isListVisible ? 'visible' : 'hidden'}`} 
-        style={{ width: '80%', padding: '20px', transition: 'transform 0.5s ease' }}
+        className={`list-container ${isListVisible ? 'visible' : 'hidden'}`} 
+        style={{ 
+          position: 'absolute', 
+          top: '0', 
+          right: '0', 
+          height: '100%', 
+          width: '80%', 
+          backgroundColor: '#fff', 
+          transition: 'transform 0.5s ease', 
+          boxShadow: '-2px 0 5px rgba(0,0,0,0.1)' 
+        }}
       >
-        <CompareSection />
-        <List />
+        <List onRowClick={handleRowClick} />
       </div>
       <div 
         className={`arrow-container`} 
@@ -50,10 +70,10 @@ const Dashboard = () => {
         />
       </div>
       <style jsx>{`
-        .content-container.hidden {
+        .list-container.hidden {
           transform: translateX(100%);
         }
-        .content-container.visible {
+        .list-container.visible {
           transform: translateX(0);
         }
         .arrow-container {

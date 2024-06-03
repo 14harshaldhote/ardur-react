@@ -1,15 +1,16 @@
 import React from 'react';
 import { TextField, Button, Box } from '@mui/material';
 
-const Comments = () => {
+const Comments = ({ disabled }) => {
   return (
     <Box
       sx={{
         padding: '20px',
         border: '2px solid #ccc',
         borderRadius: '8px',
-        // backgroundColor: '#fff',
-        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)'
+        boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+        pointerEvents: disabled ? 'none' : 'auto',
+        opacity: disabled ? 0.5 : 1,
       }}
       className='bg-clip-border'
     >
@@ -22,12 +23,14 @@ const Comments = () => {
         variant="outlined"
         fullWidth
         sx={{ marginBottom: '20px' }}
+        disabled={disabled}
       />
       <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
         <Button
           variant="contained"
           color="primary"
           sx={{ backgroundColor: 'green', '&:hover': { backgroundColor: 'darkgreen' } }}
+          disabled={disabled}
         >
           Save
         </Button>
@@ -35,6 +38,7 @@ const Comments = () => {
           variant="contained"
           color="secondary"
           sx={{ backgroundColor: 'orange', '&:hover': { backgroundColor: 'darkorange' } }}
+          disabled={disabled}
         >
           Save & Next
         </Button>

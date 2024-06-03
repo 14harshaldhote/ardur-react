@@ -35,11 +35,11 @@ const comments = {
   ]
 };
 
-const Checks = () => {
+const Checks = ({ disabled }) => {
   const allComments = Object.values(comments).flat();
 
   return (
-    <div style={{ padding: '20px' }} className='border-2'>
+    <div style={{ padding: '20px', opacity: disabled ? 0.5 : 1 }} className='border-2'>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h2 className='text-2xl font-semibold'>Checks</h2>
         <span style={{ fontWeight: 'bold', fontSize: '16px' }}>({allComments.length})</span>
