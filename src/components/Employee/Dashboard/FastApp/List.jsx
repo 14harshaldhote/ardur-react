@@ -8,43 +8,44 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function createData(caseId, documentType, vendorName, documentVendor) {
-  return { caseId, documentType, vendorName, documentVendor };
+function createData(caseId, documentType, vendorName, documentVendor, dateCreated, status) {
+  return { caseId, documentType, vendorName, documentVendor, dateCreated, status };
 }
 
 const rows = [
-  createData('AD2KE0263', 'mortgage', 'Vendor E', 'Vendor E'),
-  createData('AD3KE0263', 'mortgage', 'Vendor F', 'Vendor F'),
-  createData('AD4KE0263', 'mortgage', 'Vendor G', 'Vendor G'),
-  createData('AD5KE0263', 'mortgage', 'Vendor H', 'Vendor H'),
-  createData('AD6KE0263', 'mortgage', 'Vendor I', 'Vendor I'),
-  createData('AD7KE0263', 'mortgage', 'Vendor J', 'Vendor J'),
-  createData('AD223576S3', 'mortgage', 'HELOCs', 'Vendor A'),
-  createData('ADSW25763', 'mortgage', 'Vendor B', 'Vendor B'),
-  createData('AD2233F57', 'mortgage', 'Vendor C', 'Vendor C'),
-  createData('AD6DH5763', 'mortgage', 'Vendor D', 'Vendor D'),
-  createData('AD2KE0263', 'mortgage', 'Vendor E', 'Vendor E'),
-  createData('AD3KE0263', 'mortgage', 'Vendor F', 'Vendor F'),
-  createData('AD4KE0263', 'mortgage', 'Vendor G', 'Vendor G'),
-  createData('AD5KE0263', 'mortgage', 'Vendor H', 'Vendor H'),
-  createData('AD6KE0263', 'mortgage', 'Vendor I', 'Vendor I'),
-  createData('AD7KE0263', 'mortgage', 'Vendor J', 'Vendor J'),
+  createData('AD2KE0263', 'mortgage', 'Vendor E', 'Vendor E', '2023-01-01', 'Active'),
+  createData('AD3KE0263', 'mortgage', 'Vendor F', 'Vendor F', '2023-01-02', 'Pending'),
+  createData('AD4KE0263', 'mortgage', 'Vendor G', 'Vendor G', '2023-01-03', 'Completed'),
+  createData('AD5KE0263', 'mortgage', 'Vendor H', 'Vendor H', '2023-01-04', 'Active'),
+  createData('AD6KE0263', 'mortgage', 'Vendor I', 'Vendor I', '2023-01-05', 'Pending'),
+  createData('AD7KE0263', 'mortgage', 'Vendor J', 'Vendor J', '2023-01-06', 'Completed'),
+  createData('AD223576S3', 'mortgage', 'HELOCs', 'Vendor A', '2023-01-07', 'Active'),
+  createData('ADSW25763', 'mortgage', 'Vendor B', 'Vendor B', '2023-01-08', 'Pending'),
+  createData('AD2233F57', 'mortgage', 'Vendor C', 'Vendor C', '2023-01-09', 'Completed'),
+  createData('AD6DH5763', 'mortgage', 'Vendor D', 'Vendor D', '2023-01-10', 'Active'),
+  createData('AD2KE0263', 'mortgage', 'Vendor E', 'Vendor E', '2023-01-11', 'Pending'),
+  createData('AD3KE0263', 'mortgage', 'Vendor F', 'Vendor F', '2023-01-12', 'Completed'),
+  createData('AD4KE0263', 'mortgage', 'Vendor G', 'Vendor G', '2023-01-13', 'Active'),
+  createData('AD5KE0263', 'mortgage', 'Vendor H', 'Vendor H', '2023-01-14', 'Pending'),
+  createData('AD6KE0263', 'mortgage', 'Vendor I', 'Vendor I', '2023-01-15', 'Completed'),
+  createData('AD7KE0263', 'mortgage', 'Vendor J', 'Vendor J', '2023-01-16', 'Active'),
 ];
 
 export default function List() {
   return (
     <div style={{ display: 'flex', height: '100vh', background: '#f5f5f5' }}>
-    
-      <div style={{ width: '80%', padding: '20px', overflow: 'hidden' }}>
-        <div style={{ height: '800px', overflowY: 'auto' }}>
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <div style={{ width: '100%', padding: '20px', overflow: 'hidden' }}>
+        <div style={{ height: '800px', overflow: 'auto' }}>
+          <TableContainer component={Paper} style={{ maxHeight: '100%', overflow: 'auto' }}>
+            <Table stickyHeader aria-label="sticky table" sx={{ minWidth: 750 }}>
               <TableHead>
                 <TableRow>
                   <TableCell style={{ fontWeight: 'bold', fontSize: '16px' }}>Case ID</TableCell>
                   <TableCell style={{ fontWeight: 'bold', fontSize: '16px' }}>Document Type</TableCell>
                   <TableCell style={{ fontWeight: 'bold', fontSize: '16px' }}>Vendor Name</TableCell>
                   <TableCell style={{ fontWeight: 'bold', fontSize: '16px' }}>Document Vendor</TableCell>
+                  <TableCell style={{ fontWeight: 'bold', fontSize: '16px' }}>Date Created</TableCell>
+                  <TableCell style={{ fontWeight: 'bold', fontSize: '16px' }}>Status</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -59,15 +60,14 @@ export default function List() {
                     <TableCell style={{ fontSize: '14px' }}>{row.documentType}</TableCell>
                     <TableCell style={{ fontSize: '14px' }}>{row.vendorName}</TableCell>
                     <TableCell style={{ fontSize: '14px' }}>{row.documentVendor}</TableCell>
+                    <TableCell style={{ fontSize: '14px' }}>{row.dateCreated}</TableCell>
+                    <TableCell style={{ fontSize: '14px' }}>{row.status}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
             </Table>
           </TableContainer>
         </div>
-      </div>
-      <div style={{ display: 'flex', alignItems: 'center', padding: '0 20px' }}>
-        {/* <ArrowBackIosIcon /> */}
       </div>
     </div>
   );

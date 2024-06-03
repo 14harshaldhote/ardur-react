@@ -42,7 +42,7 @@ const Checks = () => {
     <div style={{ padding: '20px' }} className='border-2'>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h2 className='text-2xl font-semibold'>Checks</h2>
-        <span style={{ fontWeight: 'bold', fontSize: '16px' }}>Total Comments ({allComments.length})</span>
+        <span style={{ fontWeight: 'bold', fontSize: '16px' }}>({allComments.length})</span>
       </div>
       <div style={{ maxHeight: '300px', overflowY: 'auto', paddingLeft: '20px' }}>
         <ol>
