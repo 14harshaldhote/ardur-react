@@ -3,7 +3,12 @@ import React from 'react';
 const sections = [
   'Address',
   'Cost',
-  'Personal Details',
+  'Flood Certificate',
+  'E&O Insurance',
+  'Building Sketch',
+  'Supplemental Addendum',
+  'Ownership',
+  'Property Area',
   'Ramp ID'
 ];
 

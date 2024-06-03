@@ -5,7 +5,6 @@ import Comments from './Comments';
 import Checks from './Checks';
 import CompareSection from './CompareSection';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ProgressBar from './ProgressBar';
 
 const Dashboard = () => {
   const [isListVisible, setIsListVisible] = useState(true);
@@ -27,9 +26,6 @@ const Dashboard = () => {
         <Comments disabled={isListVisible} />
       </div>
       <div style={{ width: '80%', padding: '20px' }}>
-        <div>
-          <ProgressBar/>
-        </div>
         <CompareSection />
       </div>
       <div 
@@ -66,7 +62,7 @@ const Dashboard = () => {
             transform: isListVisible ? 'rotate(180deg)' : 'rotate(0deg)', 
             transition: 'transform 0.5s ease' 
           }}  
-          className='text-xl shadow-2xl hover:bg-slate-500 rounded-full -my-3 '
+          className='text-xl shadow-2xl hover:bg-slate-500 bg-slate-100/50 rounded-full -my-3 '
         />
       </div>
       <style jsx>{`

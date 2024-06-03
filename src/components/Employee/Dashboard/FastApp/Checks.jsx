@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import ProgressBar from './ProgressBar';
 
 const comments = {
   'Cost': [
@@ -36,26 +37,59 @@ const comments = {
 };
 
 const Checks = ({ disabled }) => {
-  const allComments = Object.values(comments).flat();
+  const [checkedItems, setCheckedItems] = useState([]);
+
+  const handleCheckboxChange = (section, comment) => {
+    const item = `${section}-${comment}`;
+    setCheckedItems((prevCheckedItems) =>
+      prevCheckedItems.includes(item)
+        ? prevCheckedItems.filter((checkedItem) => checkedItem !== item)
+        : [...prevCheckedItems, item]
+    );
+  };
+
+  const filteredComments = Object.entries(comments).reduce((acc, [section, sectionComments]) => {
+    const filteredSectionComments = sectionComments.filter(
+      (comment) => !checkedItems.includes(`${section}-${comment}`)
+    );
+    acc[section] = filteredSectionComments;
+    return acc;
+  }, {});
+
+  const totalComments = Object.values(comments).flat().length;
+  const checkedCount = checkedItems.length;
+  const progress = (checkedCount / totalComments) * 100;
 
   return (
     <div style={{ padding: '20px', opacity: disabled ? 0.5 : 1 }} className='border-2'>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <h2 className='text-2xl font-semibold'>Checks</h2>
-        <span style={{ fontWeight: 'bold', fontSize: '16px' }}>({allComments.length})</span>
+        <span style={{ fontWeight: 'bold', fontSize: '16px' }}>({totalComments - checkedCount})</span>
       </div>
+      <ProgressBar progress={progress} />
       <div style={{ maxHeight: '300px', overflowY: 'auto', paddingLeft: '20px' }}>
         <ol>
-          {Object.entries(comments).map(([section, sectionComments], index) => (
+          {Object.entries(filteredComments).map(([section, sectionComments], index) => (
             <li key={index} style={{ marginBottom: '10px', fontSize: '16px' }}>
-              <strong>{section}</strong>
-              <ol style={{ listStyleType: 'decimal', paddingLeft: '20px' }}>
-                {sectionComments.map((comment, i) => (
-                  <li key={i} style={{ marginBottom: '5px', fontSize: '14px' }}>
-                    {comment}
-                  </li>
-                ))}
-              </ol>
+              <strong style={{ textDecoration: sectionComments.length === 0 ? 'line-through' : 'none' }}>
+                {section}
+              </strong>
+              {sectionComments.length > 0 && (
+                <ol style={{ listStyleType: 'decimal', paddingLeft: '20px' }}>
+                  {sectionComments.map((comment, i) => (
+                    <li key={i} style={{ marginBottom: '5px', fontSize: '14px', display: 'flex', alignItems: 'center' }}>
+                      <input
+                        type="checkbox"
+                        checked={checkedItems.includes(`${section}-${comment}`)}
+                        onChange={() => handleCheckboxChange(section, comment)}
+                        style={{ marginRight: '10px' }}
+                        disabled={disabled}
+                      />
+                      {comment}
+                    </li>
+                  ))}
+                </ol>
+              )}
             </li>
           ))}
         </ol>
