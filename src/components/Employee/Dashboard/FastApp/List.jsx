@@ -35,31 +35,18 @@ export default function List() {
   return (
     <div style={{ display: 'flex', height: '100vh', background: '#f5f5f5' }}>
       <div style={{ width: '20%', background: '#f0f0f0', padding: '20px' }}>
-        <div style={{ marginBottom: '20px' }}>
-          <h2>Sections</h2>
-        </div>
-        <div style={{ marginBottom: '20px' }}>
-          <h2>Total Comments</h2>
-        </div>
-        <div>
-          <h2>Comments</h2>
-          <textarea style={{ width: '100%', height: '100px', marginBottom: '10px' }} />
-          <div>
-            <button style={{ marginRight: '10px' }}>Save</button>
-            <button>Next & Save</button>
-          </div>
-        </div>
+        {/* You can add your side sections here */}
       </div>
       <div style={{ width: '80%', padding: '20px', overflow: 'hidden' }}>
-        <div style={{ height: '500px', overflowY: 'auto' }}>
+        <div style={{ height: '800px', overflowY: 'auto' }}>
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell style={{ fontWeight: 'bold' }}>Case ID</TableCell>
-                  <TableCell style={{ fontWeight: 'bold' }}>Document Type</TableCell>
-                  <TableCell style={{ fontWeight: 'bold' }}>Vendor Name</TableCell>
-                  <TableCell style={{ fontWeight: 'bold' }}>Document Vendor</TableCell>
+                  <TableCell style={{ fontWeight: 'bold', fontSize: '16px' }}>Case ID</TableCell>
+                  <TableCell style={{ fontWeight: 'bold', fontSize: '16px' }}>Document Type</TableCell>
+                  <TableCell style={{ fontWeight: 'bold', fontSize: '16px' }}>Vendor Name</TableCell>
+                  <TableCell style={{ fontWeight: 'bold', fontSize: '16px' }}>Document Vendor</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -68,12 +55,12 @@ export default function List() {
                     key={row.caseId}
                     sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                   >
-                    <TableCell component="th" scope="row" style={{ fontWeight: 'bold' }}>
+                    <TableCell component="th" scope="row" style={{ fontWeight: 'bold', fontSize: '14px' }}>
                       {row.caseId}
                     </TableCell>
-                    <TableCell>{row.documentType}</TableCell>
-                    <TableCell>{row.vendorName}</TableCell>
-                    <TableCell>{row.documentVendor}</TableCell>
+                    <TableCell style={{ fontSize: '14px' }}>{row.documentType}</TableCell>
+                    <TableCell style={{ fontSize: '14px' }}>{row.vendorName}</TableCell>
+                    <TableCell style={{ fontSize: '14px' }}>{row.documentVendor}</TableCell>
                   </TableRow>
                 ))}
               </TableBody>
